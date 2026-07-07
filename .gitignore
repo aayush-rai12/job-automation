@@ -1,0 +1,26 @@
+node_modules
+.env
+
+# Build output
+dist/
+build/
+out/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editors and IDEs
+.vscode/
+.idea/
+
+
+# TypeScript
+.tsbuildinfo
+
+# Test/debug files
+server/src/test-*.ts
