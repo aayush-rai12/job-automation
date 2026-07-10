@@ -30,5 +30,5 @@ RUN npm run build
 
 EXPOSE 3000
 
-# Xvfb ke saath start karo - virtual display create karega
-CMD ["xvfb-run", "--auto-servernum", "--server-args=-screen 0 1366x768x24", "npm", "start"]
+# Xvfb background mein start karo, phir app chalao
+CMD Xvfb :99 -screen 0 1366x768x24 & export DISPLAY=:99 && npm start
