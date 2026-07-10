@@ -27,14 +27,25 @@ interface JobSummary {
 
 export async function sendJobDigest(jobs: JobSummary[]) {
   const telegramBot = getBot();
+
   if (!telegramBot || !chatId) return;
 
+  let message = "";
+
   if (jobs.length === 0) {
-    console.log("No high-match jobs to notify about");
+    message = "🎯 No new high-match jobs found today.";
+
+    try {
+      await telegramBot.sendMessage(chatId, message);
+      console.log("Telegram notification sent");
+    } catch (error) {
+      console.error("Failed to send Telegram notification:", error);
+    }
+
     return;
   }
 
-  let message = `🎯 *${jobs.length} New High-Match Jobs Found!*\n\n`;
+  message = `🎯 *${jobs.length} New High-Match Jobs Found!*\n\n`;
 
   for (const job of jobs.slice(0, 10)) {
     message += `*${job.title}*\n`;
@@ -44,7 +55,9 @@ export async function sendJobDigest(jobs: JobSummary[]) {
   }
 
   try {
-    await telegramBot.sendMessage(chatId, message, { parse_mode: "Markdown" });
+    await telegramBot.sendMessage(chatId, message, {
+      parse_mode: "Markdown",
+    });
     console.log(`Telegram notification sent: ${jobs.length} jobs`);
   } catch (error) {
     console.error("Failed to send Telegram notification:", error);

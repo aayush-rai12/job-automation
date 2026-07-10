@@ -64,7 +64,7 @@ export async function scrapeIndeed(
   location = "Remote",
   category: "frontend" | "backend" | "fullstack" = "fullstack"
 ) {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext({
     viewport: { width: 1366, height: 768 },
   });

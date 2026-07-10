@@ -1,6 +1,5 @@
 FROM node:20-slim
 
-# Playwright ke liye zaroori system dependencies install karo
 RUN apt-get update && apt-get install -y \
     libnss3 \
     libnspr4 \
@@ -15,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libgbm1 \
     libasound2 \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -22,7 +22,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Playwright browser install karo (root already hai Docker mein, isliye --with-deps chalega)
 RUN npx playwright install --with-deps chromium
 
 COPY . .
@@ -31,4 +30,5 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Xvfb ke saath start karo - virtual display create karega
+CMD ["xvfb-run", "--auto-servernum", "--server-args=-screen 0 1366x768x24", "npm", "start"]

@@ -11,17 +11,17 @@ async function runFullScrapeCycle() {
   console.log(`\n[CRON] Starting scrape cycle at ${new Date().toLocaleString()}`);
   try {
     console.log("=== Scraping Frontend Developer jobs ===");
-    const frontendResult = await scrapeIndeed("frontend developer react", "Remote", "frontend");
+    const frontendResult = await scrapeIndeed("frontend developer react", "India", "frontend");
 
     await randomDelay(15000, 25000);
 
     console.log("=== Scraping Backend Developer jobs ===");
-    const backendResult = await scrapeIndeed("backend developer node.js", "Remote", "backend");
+    const backendResult = await scrapeIndeed("backend developer node.js", "India", "backend");
 
     await randomDelay(15000, 25000);
 
     console.log("=== Scraping Full Stack Developer jobs ===");
-    const fullstackResult = await scrapeIndeed("full stack developer", "Remote", "fullstack");
+    const fullstackResult = await scrapeIndeed("full stack developer", "India", "fullstack");
 
     console.log(`[CRON] Scrape cycle completed at ${new Date().toLocaleString()}\n`);
 
